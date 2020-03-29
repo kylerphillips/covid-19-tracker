@@ -17,27 +17,39 @@ $totalCases = ($obj-> cases);
 
 $yesterdayDeaths = end($arrayHistorial['deaths']);
 $totalDeaths = ($obj-> deaths);
-//                         
-//print_r ($yesterdayCases);
-//echo '<br>';
-//
-//print_r ($totalCases);
-//echo '<br>';
-    
-/**
-* Calculates in percent, the change between 2 numbers.
-* e.g from 1000 to 500 = 50%
-* 
-* @param oldNumber The initial value
-* @param newNumber The value that changed
-*/
-function getPercentageChange($oldNumber, $newNumber){
-    $decreaseValue = $oldNumber - $newNumber;
 
-    return ($decreaseValue / $oldNumber) * 100;
-}
 
-//echo abs(round(getPercentageChange($yesterdayCases, $totalCases)));
+  function getPercentageChange($oldNumber, $newNumber){
+    $decreaseValue = $newNumber - $oldNumber;
+    $percentage = round(($decreaseValue / $oldNumber) * 100);
+    $output = "";
+
+    if ($percentage > 0) {
+      $output = $percentage . "% increase";
+    } elseif ($percentage < 0) {
+      $output = $percentage . "% decrease";
+    } else {
+      $output = $percentage . "% increase";
+    }
+
+    return $output;
+  }
+
+  function getBadgeClass($percentage){
+    $output = "";
+
+    if ($percentage > 0) {
+      $output = "badge-danger";
+    } elseif ($percentage < 0) {
+      $output = "badge-success";
+    } else {
+      $output = "badge-info";
+    }
+
+    return $output;
+  }
+
+
 ?>
 
 <!doctype html>
@@ -130,7 +142,7 @@ function getPercentageChange($oldNumber, $newNumber){
                         <h6 class="black-40 ttu tl">Total Cases</h6>
                         <h3 class="black tl" data-plugin="counterup"><?php echo number_format($obj-> cases) ?></h3>
                          <div class="sub-info pt3 pb4">
-                     <span class="badge badge-danger mr-1"><?php echo abs(round(getPercentageChange($yesterdayCases, $totalCases))) ?>% increase</span>
+                    <span class="badge <?php echo getBadgeClass(getPercentageChange($yesterdayCases, $totalCases));?> mr-1"><?php echo getPercentageChange($yesterdayCases, $totalCases) ?></span>
                         <span class="text-muted black-40">from yesterday</span>
                         </div>
                     </div>
@@ -146,7 +158,7 @@ function getPercentageChange($oldNumber, $newNumber){
                         <h6 class="black-40 ttu tl">Total Deaths</h6>
                         <h3 class="black tl" data-plugin="counterup"><?php echo number_format($obj-> deaths) ?></h3>
                         <div class="sub-info pt3 pb4">
-                        <span class="badge badge-danger mr-1"><?php echo abs(round(getPercentageChange($yesterdayDeaths, $totalDeaths))) ?>% increase</span>
+                        <span class="badge <?php echo getBadgeClass(getPercentageChange($yesterdayDeaths, $totalDeaths));?> mr-1"><?php echo getPercentageChange($yesterdayDeaths, $totalDeaths) ?></span>
                         <span class="text-muted black-40">from yesterday</span>
                         </div>
                     </div>
