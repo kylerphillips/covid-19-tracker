@@ -605,10 +605,16 @@ table > td, th, div{
         width: 100% !important;
     }
     
+    
+    
     .product-hunt {
             float: left;
     padding-bottom: 0.5rem;
     }
+    
+    .product-hunt {
+    padding: 0.5rem;
+}
 
     header {
         max-width: 100% !important;
@@ -774,3 +780,4 @@ button {
     height: 35px;
     flex: none;
 }
+

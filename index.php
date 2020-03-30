@@ -252,9 +252,12 @@ echo '  <thead>
                             <th>Country</th>
                             <th>Cases</th>
                             <th>Deaths</th>
+                            <th>Critical</th>
                             <th>Recovered</th>
                             <th>Today\'s Cases</th>
                             <th>Today\'s Deaths</th>
+                            <th>Cases Per 1M</th>
+                            <th>Deaths Per 1M</th>
                         </tr>
                     </thead>';   
     
@@ -266,9 +269,12 @@ echo '  <thead>
             echo '<td> <img src='.$result['countryInfo']['flag'].'>'.$result['country'].'</td>';
             echo '<td>' .number_format($result['cases']).'</td>';
             echo '<td>'.number_format($result['deaths']).'</td>';
+            echo '<td>'.number_format($result['critical']).'</td>';
             echo '<td>'.number_format($result['recovered']).'</td>';
             echo '<td>'.number_format($result['todayCases']).'</td>';
             echo '<td>'.number_format($result['todayDeaths']).'</td>';
+            echo '<td>'.number_format($result['casesPerOneMillion']).'</td>';
+            echo '<td>'.number_format($result['deathsPerOneMillion']).'</td>';
           echo '</tr>';
         }          
         echo'</tbody>';
