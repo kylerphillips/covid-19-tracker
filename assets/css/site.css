@@ -640,6 +640,13 @@ table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, 
     color: #fff;
     background-color: #d9534f;
 }
+.badge-info {
+    color: #fff;
+    background: lightslategray;
+}
+
+    
+
 .badge {
     display: inline-block;
     padding: .25em .4em;
