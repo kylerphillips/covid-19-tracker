@@ -18,7 +18,6 @@ $totalCases = ($obj-> cases);
 $yesterdayDeaths = end($arrayHistorial['deaths']);
 $totalDeaths = ($obj-> deaths);
 
-
   function getPercentageChange($oldNumber, $newNumber){
     $decreaseValue = $newNumber - $oldNumber;
     $percentage = round(($decreaseValue / $oldNumber) * 100);
@@ -122,7 +121,7 @@ $totalDeaths = ($obj-> deaths);
     <div class="h-100 midnight-blue pa3 ph0-l pv6-l">
         <div class="center mw7">
             <article class="cf">
- <a href="https://www.producthunt.com/posts/covid-19-tracker-4?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-covid-19-tracker-4" target="_blank"><img class="product-hunt"src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=190043&theme=light" alt="COVID-19 Tracker - Simple, no bullshit COVID-19 tracker. | Product Hunt Embed" style="width: 250px; height: 54px;" width="250px" height="54px" /></a>
+ <a class="product-hunt" href="https://www.producthunt.com/posts/covid-19-tracker-4?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-covid-19-tracker-4" target="_blank"><img class="product-hunt"src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=190043&theme=light" alt="COVID-19 Tracker - Simple, no bullshit COVID-19 tracker. | Product Hunt Embed" style="width: 250px; height: 54px;" width="250px" height="54px" /></a>
             
                 <header class="header mw5 mw7-ns tl pa3">
                     <h1 class="mt0">🦠 COVID-19 Tracker</h1>
@@ -237,9 +236,9 @@ $totalDeaths = ($obj-> deaths);
                     </div>
                 </div>
             </article>
-            <section class="country-table">
+            <section class=" country-table">
                 <h1>🌎 Country Breakdown</h1>
-
+                <div class="table-responsive">
   <?php 
         $json=file_get_contents("https://corona.lmao.ninja/countries");
     $data =  json_decode($json);
@@ -249,6 +248,7 @@ $array = json_decode(json_encode($data), true);
  echo '<table id="country-table" class="table table-striped table-curved">';
 echo '  <thead>
                         <tr>
+                            <th>Rank</th>
                             <th>Country</th>
                             <th>Cases</th>
                             <th>Deaths</th>
@@ -262,6 +262,7 @@ echo '  <thead>
         foreach($array as $result){
            
           echo '<tr>';
+            echo '<td></td>';
             echo '<td> <img src='.$result['countryInfo']['flag'].'>'.$result['country'].'</td>';
             echo '<td>' .number_format($result['cases']).'</td>';
             echo '<td>'.number_format($result['deaths']).'</td>';
@@ -275,28 +276,45 @@ echo '  <thead>
 
 
 ?>
+                    </div>
             </section>
             
            
             <footer class="">
+                <a href="https://www.buymeacoffee.com/kylerphillips">
+                <button class="donate-btn-round"><img src="assets/img/coffee-buy.png"></button>
+                </a>
   <div class="mt1">
     <a href="https://kyler.design" title="Kyler Phillips" class="f4 dib pr2 mid-gray dim">👨 Made by Kyler Phillips</a>
       <a href="https://github.com/NovelCOVID/API" title="Data Source" class="f4 dib pr2 mid-gray dim">📊 Data Source</a>
   </div>
 </footer>
+            
         </div>
     </div>
 
   
 <script>
      $(document).ready(function() {
-    $('#country-table').DataTable({
-     "order": [
-      [1, "desc"]
-     ],
-        "bLengthChange": false,
+        
+         var t = $('#country-table').DataTable( {
+        "columnDefs": [ {
+            "searchable": false,
+            "orderable": false,
+            "targets": 0
+        } ],
+        "order": [[ 2, 'desc' ]],
+         "bLengthChange": false,
+    } );
+ 
+    t.on( 'order.dt search.dt', function () {
+        t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        } );
+    } ).draw();
+
     });
-   });
+   
     </script>
 
 </body>
