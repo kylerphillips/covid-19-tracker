@@ -2,7 +2,7 @@
 
 The code that powers [viruscovid.tech](https://viruscovid.tech)
 
-![image](https://user-images.githubusercontent.com/9768489/78036123-77f43c80-7359-11ea-9c28-1c36740b6b73.png)
+![preview](https://user-images.githubusercontent.com/9768489/78036663-197b8e00-735a-11ea-89e2-e5a168d25fa3.png)
 
 
 ## Development
