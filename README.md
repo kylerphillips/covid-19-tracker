@@ -1,4 +1,4 @@
-# covid-19-tracker
+# 🦠COVID-19 Tracker
 
 The code that powers [viruscovid.tech](https://viruscovid.tech).
 
