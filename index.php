@@ -5,8 +5,6 @@
 $json = file_get_contents('https://corona.lmao.ninja/all');
 $obj = json_decode($json);
 
-
-
 $jsonHistorial = file_get_contents('https://corona.lmao.ninja/v2/historical/all');
 $objHistorial = json_decode($jsonHistorial);
 $arrayHistorial = json_decode(json_encode($objHistorial), true);
@@ -17,6 +15,13 @@ $totalCases = ($obj-> cases);
 
 $yesterdayDeaths = end($arrayHistorial['deaths']);
 $totalDeaths = ($obj-> deaths);
+
+$yesterdayRecoveries = end($arrayHistorial['recovered']);
+$totalRecoveries= ($obj-> recovered);
+
+$activeCases = ($obj-> active);
+$activeYesterday = ($yesterdayCases - $yesterdayDeaths - $yesterdayRecoveries);
+
 
   function getPercentageChange($oldNumber, $newNumber){
     $decreaseValue = $newNumber - $oldNumber;
@@ -47,6 +52,26 @@ $totalDeaths = ($obj-> deaths);
 
     return $output;
   }
+
+function thousandsCurrencyFormat($num) {
+
+  if($num>1000) {
+
+        $x = round($num);
+        $x_number_format = number_format($x);
+        $x_array = explode(',', $x_number_format);
+        $x_parts = array('k', 'm', 'b', 't');
+        $x_count_parts = count($x_array) - 1;
+        $x_display = $x;
+        $x_display = $x_array[0] . ((int) $x_array[1][0] !== 0 ? '.' . $x_array[1][0] : '');
+        $x_display .= $x_parts[$x_count_parts - 1];
+
+        return $x_display;
+
+  }
+
+  return $num;
+}
 
 
 ?>
@@ -118,8 +143,19 @@ $totalDeaths = ($obj-> deaths);
 </head>
 
 <body>
+<!--
+        <div class="center mw7">
+          <nav class="db dt-l w-100 border-box pa3 ">
+  <div class="db dtc-l v-mid w-100 w-75-l tc tr-l">
+    <a class="link dim dark-gray f6 f5-l dib" href="https://viruscovid.tech/uk" title="UK Data">🇬🇧 UK Data</a>
+  </div>
+</nav>
+            </div>
+-->
+ 
     <div class="h-100 midnight-blue pa3 ph0-l pv6-l">
         <div class="center mw7">
+      
             <article class="cf">
  <a class="product-hunt" href="https://www.producthunt.com/posts/covid-19-tracker-4?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-covid-19-tracker-4" target="_blank"><img class="product-hunt"src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=190043&theme=light" alt="COVID-19 Tracker - Simple, no bullshit COVID-19 tracker. | Product Hunt Embed" style="width: 250px; height: 54px;" width="250px" height="54px" /></a>
             
@@ -142,7 +178,7 @@ $totalDeaths = ($obj-> deaths);
                         <h3 class="black tl" data-plugin="counterup"><?php echo number_format($obj-> cases) ?></h3>
                          <div class="sub-info pt3 pb4">
                     <span class="badge <?php echo getBadgeClass(getPercentageChange($yesterdayCases, $totalCases));?> mr-1"><?php echo getPercentageChange($yesterdayCases, $totalCases) ?></span>
-                        <span class="text-muted black-40">from yesterday</span>
+                        <span class="text-muted black-40">from yesterday (<?php echo thousandsCurrencyFormat($yesterdayCases) ?>)</span>
                         </div>
                     </div>
                 </div>
@@ -158,7 +194,7 @@ $totalDeaths = ($obj-> deaths);
                         <h3 class="black tl" data-plugin="counterup"><?php echo number_format($obj-> deaths) ?></h3>
                         <div class="sub-info pt3 pb4">
                         <span class="badge <?php echo getBadgeClass(getPercentageChange($yesterdayDeaths, $totalDeaths));?> mr-1"><?php echo getPercentageChange($yesterdayDeaths, $totalDeaths) ?></span>
-                        <span class="text-muted black-40">from yesterday</span>
+                        <span class="text-muted black-40">from yesterday (<?php echo thousandsCurrencyFormat($yesterdayDeaths) ?>)</span>
                         </div>
                     </div>
                 </div>
@@ -187,7 +223,10 @@ $totalDeaths = ($obj-> deaths);
                             </svg></span>
                         <h6 class="black-40 ttu tl">Total Recoveries</h6>
                         <h3 class="black tl" data-plugin="counterup"><?php echo number_format($obj-> recovered) ?></h3>
-                        
+                         <div class="sub-info pt3 pb4">
+                    <span class="badge <?php echo getBadgeClass(getPercentageChange($totalRecoveries, $yesterdayRecoveries));?> mr-1"><?php echo getPercentageChange($yesterdayRecoveries, $totalRecoveries) ?></span>
+                        <span class="text-muted black-40">from yesterday (<?php echo thousandsCurrencyFormat($yesterdayRecoveries) ?>)</span>
+                        </div>
                     
                     </div>
                 </div>
@@ -232,7 +271,10 @@ $totalDeaths = ($obj-> deaths);
                             </svg></span>
                         <h6 class="black-40 ttu tl">Active Cases</h6>
                         <h3 class="black tl" data-plugin="counterup"><?php echo number_format($obj-> active)  ?></h3>
-                       
+                        <div class="sub-info pt3 pb4">
+                        <span class="badge <?php echo getBadgeClass(getPercentageChange($activeYesterday, $activeCases));?> mr-1"><?php echo getPercentageChange($activeYesterday, $activeCases) ?></span>
+                        <span class="text-muted black-40">from yesterday (<?php echo thousandsCurrencyFormat($activeYesterday) ?>)</span>
+                        </div>
                     </div>
                 </div>
             </article>
@@ -287,7 +329,7 @@ echo '  <thead>
             
            
             <footer class="">
-                <a href="https://www.buymeacoffee.com/kylerphillips">
+                <a class="buy" href="https://www.buymeacoffee.com/kylerphillips">
                 <button class="donate-btn-round"><img src="assets/img/coffee-buy.png"></button>
                 </a>
   <div class="mt1">

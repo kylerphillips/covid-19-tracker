@@ -605,6 +605,9 @@ table > td, th, div{
         width: 100% !important;
     }
     
+    .buy {
+        display: none;
+    }
     
     
     .product-hunt {
