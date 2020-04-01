@@ -145,17 +145,52 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css" />
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.css" />
 </head>
-<body>
+<body class="">
   <div class="h-100 midnight-blue pa3 ph0-l pv6-l">
-    <div class="center mw7">
+      <div class="center mw7">
+          <nav class="db dt-l w-100 border-box pa3 ">
+              <div class="switch-wrapper">
+                  <img class="theme-icon" src="assets/img/moon.svg">
+                  <div class="theme-switch">
+                      <div class="switch"></div>
+                  </div>
+              </div>
+          </nav>
       <article class="cf">
-        <a class="product-hunt" href="https://www.producthunt.com/posts/covid-19-tracker-4?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-covid-19-tracker-4" target="_blank"><img class="product-hunt"src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=190043&theme=light" alt="COVID-19 Tracker - Simple, no bullshit COVID-19 tracker. | Product Hunt Embed" style="width: 250px; height: 54px;" width="250px" height="54px" /></a>
-
         <header class="header mw5 mw7-ns tl pa3">
+          <div class="fl w-50-ns pa2">
           <h1 class="mt0">🦠 COVID-19 Tracker</h1>
           <p class="lh-copy measure black-60">
             Track the spread of the Coronavirus Covid-19 outbreak
           </p>
+           </div>
+            <div class="fl w-50-ns pa2 link">
+            <a data-w-id="594c395f-00e8-cb6c-3f01-105396a0bfa3" href="https://www.producthunt.com/posts/covid-19-tracker-4" target="_blank" class="navlinkblock w-inline-block" style="">
+                <div class="navbuttoniconwrapper">
+                    <div class="navbuttoniconcontainer" style="display: flex;">
+                        <img src="https://uploads-ssl.webflow.com/5dc1f3e07930b038a93284e3/5dc6550a11520edf8ee08b97_Icon_PH.svg" alt="" width="19">
+                    </div>
+                    <div class="navbuttoniconcontainerhover" style="display: none;"><img src="https://uploads-ssl.webflow.com/5dc1f3e07930b038a93284e3/5dc65b13d6571e5414baafc8_Icon_PH_Hover.svg" alt="" width="19"></div>
+                </div>
+                <div class="phbuttontextcontainer">
+                    <div class="navlinktext phtitle" style="">Come and join on</div>
+                    <div class="navlinktext phcopy" style="">Product Hunt</div>
+                </div>
+            </a>
+            <a href="https://www.buymeacoffee.com/kylerphillips" target="_blank" class="navlinkblock w-inline-block" style=";">
+                <div class="navbuttoniconwrapper coffee">
+                    <div class="navbuttoniconcontainer" style="display: flex;"><img src="https://uploads-ssl.webflow.com/5dc1f3e07930b038a93284e3/5dc6534d11520efe89e08779_Icon_Coffee.svg" alt="" width="14">
+                    </div>
+                    <div class="navbuttoniconcontainerhover" style="display: none;"><img src="https://uploads-ssl.webflow.com/5dc1f3e07930b038a93284e3/5dc65afa2058972e4c7ac0bb_Icon_Coffee_Hover.svg" alt="" width="14">
+                    </div>
+                </div>
+                <div class="phbuttontextcontainer">
+                    <div class="navlinktext phtitle" style="">Buy me a coffee</div>
+                    <div class="navlinktext phcopy" style="">Support this site</div>
+                </div>
+            </a>
+            </div>
+          
         </header>
 
         <div class="fl w-50 tc stat-card">
@@ -280,19 +315,20 @@
         var myChart = new Chart(ctx, {
           type: 'line',
           responsive: true,
-          data: {
-            labels:  [<?php echo $datesFormatted; ?>],
-            datasets: [{
-              label: '# of Cases',
-              data: [<?php echo $casesByDayFormatted; ?>],
-              backgroundColor: [
-                'rgba(54, 162, 235, 0.2)',
-              ],
-              borderColor: [
-                'rgba(54, 162, 235, 1)',
-              ],
-              borderWidth: 1
-            }]
+
+                              data: {
+     labels:  [<?php echo $datesFormatted; ?>],
+     datasets: [{
+           data: [<?php echo $casesByDayFormatted; ?>],
+           label: '# of Cases',
+           backgroundColor: "rgba(54, 162, 235, 0.4)",
+           pointBackgrondColor: "rgba(54, 162, 235, 1)",
+           borderColor: "rgba(54, 162, 235, 1)",
+           borderWidth: 1
+         
+       }]
+            
+            
           },
           options: {
             scales: {
@@ -311,19 +347,21 @@
         var myChart = new Chart(ctx, {
           type: 'line',
           responsive: true,
-          data: {
-            labels:  [<?php echo $datesFormattedDeaths; ?>],
-            datasets: [{
-              label: '# of Deaths',
-              data: [<?php echo $deathsByDayFormatted; ?>],
-              backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-              ],
-              borderColor: [
-                'rgba(255, 99, 132, 1)',
-              ],
-              borderWidth: 1
-            }]
+
+              
+                
+                data: {
+     labels: [<?php echo $datesFormattedDeaths; ?>],
+     datasets: [{
+           data: [<?php echo $deathsByDayFormatted; ?>],
+         label: '# of Deaths',
+           backgroundColor: "rgba(255, 99, 132, 0.4)",
+           pointBackgrondColor: "rgba(255, 99, 132, 1)",
+           borderColor: "rgba(255, 99, 132, 1)",
+           borderWidth: 1
+         
+       }]
+    
           },
           options: {
             scales: {
@@ -337,11 +375,7 @@
         });
       </script>
       <footer class="">
-        <a class="buy" href="https://www.buymeacoffee.com/kylerphillips">
-          <button class="donate-btn-round">
-            <img src="assets/img/coffee-buy.png">
-          </button>
-        </a>
+
         <div class="mt1">
           <a href="https://kyler.design" title="Kyler Phillips" class="f4 dib pr2 mid-gray dim">👨 Made by Kyler Phillips</a>
           <a href="https://github.com/NovelCOVID/API" title="Data Source" class="f4 dib pr2 mid-gray dim">📊 Data Source</a>
@@ -366,6 +400,25 @@
         });
       }).draw();
     });
+  </script>
+  <script>
+
+      function isDay() {
+  const hours = (new Date()).getHours();
+  return (hours >= 6 && hours < 18);
+}
+      
+      if (isDay() == false) {
+          $("body").toggleClass("light-theme");
+      } else {
+          $("body").toggleClass("");
+      }
+        
+      $(".theme-switch").on("click", () => {
+          $("body").toggleClass("light-theme");
+      });
+      
+  
   </script>
 </body>
 </html>
