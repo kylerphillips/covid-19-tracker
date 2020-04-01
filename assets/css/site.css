@@ -105,7 +105,7 @@ body {
     -webkit-box-shadow: 0 0 35px 0 rgba(73,80,87,.15);
     box-shadow: 0 0 35px 0 rgba(73,80,87,.15);
     margin-bottom: 24px;
-    border-radius: 0.75rem;
+    border-radius: 0.5rem;
     margin: 1rem;
 }
 
@@ -784,3 +784,14 @@ button {
     flex: none;
 }
 
+.chart-wrapper {
+    margin: 0 !important;;
+    padding: 2rem;
+    padding-top: 0.5rem;
+}
+
+
+.chart-container {
+  position: relative;
+  margin: auto;
+}
