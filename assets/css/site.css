@@ -561,7 +561,7 @@ th {
 
 
 .pagination li a:link {
-    color: black; 
+    color: black;
     outline: none;
 }
 
@@ -606,19 +606,19 @@ table > td, th, div{
     .stat-card {
         width: 100% !important;
     }
-    
+
     header div:first-child {
         width: 100%;
     }
     header div:nth-child(2) {
         display: none;
     }
-    
+
     .product-hunt {
             float: left;
     padding-bottom: 0.5rem;
     }
-    
+
     .product-hunt {
     padding: 0.5rem;
 }
@@ -635,9 +635,9 @@ float: left;
     .pagination {
         padding-left: 0 !important;
     }
-    
 
-    }   
+
+    }
 
 
     div.dataTables_paginate ul.pagination {
@@ -722,7 +722,7 @@ table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, 
     background: lightslategray;
 }
 
-    
+
 
 .badge {
     display: inline-block;
@@ -740,7 +740,7 @@ table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, 
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
 }
 .text-muted {
-    
+
     float: left;
     font-size: 1.25rem;
 }
@@ -812,7 +812,7 @@ button {
        transition: all .3s ease-in-out;
 }
 .navlinkblock:hover {
- 
+
     transform: scale(1.05)
 }
 
@@ -832,7 +832,7 @@ button {
     -webkit-align-items: center;
     -ms-flex-align: center;
     align-items: center;
-    
+
 
 }
 
@@ -880,7 +880,7 @@ a:hover > .navbuttoniconwrapper {
 header {
     height: 150px;
     clear: both;
-    
+
 }
 
 
@@ -943,7 +943,7 @@ body:not(.light-theme) {
 }
 
 .light-theme .card-box {
-    background-color: rgba(255,255,255, 0.1);
+    background-color: rgba(255,255,255, 0.05);
 }
 
 .light-theme h3 {
@@ -986,7 +986,7 @@ body:not(.light-theme) {
 
 .light-theme .table-curved > thead:first-child > tr:first-child > th {
     border-top: 1px solid rgba(255,255,255, 0.1);
-    
+
 }
 
 .light-theme .table-curved td, .light-theme .table-curved th {
@@ -1004,7 +1004,7 @@ body:not(.light-theme) {
 }
 
 .light-theme .table-striped tbody tr:nth-of-type(odd) {
-    background-color: rgba(255,255,255, 0.1) !important;
+    background-color: rgba(255,255,255, 0.05) !important;
 }
 
 .light-theme .pagination {
@@ -1065,6 +1065,10 @@ body:not(.light-theme) {
     border-bottom-right-radius: 4px;
 }
 
+.light-theme .select2-container--default .select2-selection--single {
+    background: rgba(255,255,255, 0.1);
+}
+
 
 .theme-icon {
     height: 24px;
@@ -1076,4 +1080,22 @@ body:not(.light-theme) {
 .switch-wrapper {
     float: right;
 }
+.select2-container {
+  float: right;
+  outline: none;
+}
 
+.img-flag {
+            height: 1rem;
+    width: 1.5rem;
+    border-radius: 2px;
+    margin-right: 0.5rem;
+}
+
+.select2 {
+    margin-top: 1rem !important;
+}
+
+.select2-selection {
+    outline: none;
+}
