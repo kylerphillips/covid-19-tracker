@@ -30,9 +30,21 @@ $datesFormattedShort = '"'.implode('","',$items).'"' ;
 
   /* deaths - chart[2] */
   $datesDeaths = array_keys($arrayHistorial['deaths']);
+
+$itemsD = array();
+$itemsDeaths = array();
+  foreach ($datesDeaths as $key => $value) {
+    $itemsD[] = date("j M", strtotime($value))."";
+    
+  };
+
+$datesDeathsFormattedShort = '"'.implode('","',$itemsD).'"' ;
+
   $datesFormattedDeaths ="'".implode("','",$datesDeaths)."'";
   $deathsByDay = array_values($arrayHistorial['deaths']);
   $deathsByDayFormatted = "'".implode("','",$deathsByDay)."'";
+
+
 
   /* top card calculations */
   $yesterdayCases = end($arrayHistorial['cases']);
@@ -264,14 +276,14 @@ $datesFormattedShort = '"'.implode('","',$items).'"' ;
         </div>
       </article>
       <section class="country-table">
-        <h1>🌎 Country Breakdown</h1>
+        
         <div class="table-responsive">
           <?php
             $json = file_get_contents("https://corona.lmao.ninja/countries");
             $select2Data = json_encode($json);
             $data = json_decode($json);
             $array = json_decode(json_encode($data), true);
-
+                  echo '<h1>🌎 Country Breakdown</h1>'; 
             echo '<table id="country-table" class="table table-striped table-curved">';
             echo '<thead>
                     <tr>
@@ -289,6 +301,9 @@ $datesFormattedShort = '"'.implode('","',$items).'"' ;
                   </thead>';
 
             echo'<tbody id="tbody">';
+                  
+               
+    
 
             foreach($array as $result) {
               echo '<tr>';
@@ -304,7 +319,7 @@ $datesFormattedShort = '"'.implode('","',$items).'"' ;
               echo '<td>'.number_format($result['deathsPerOneMillion']).'</td>';
               echo '</tr>';
             };
-            echo'</tbody>';
+            echo'</tbody>';          
             echo '</table>';
           ?>
         </div>
@@ -313,20 +328,59 @@ $datesFormattedShort = '"'.implode('","',$items).'"' ;
         <div class="card-box chart-wrapper">
           <select class="js-data-example-ajax" style="width: 200px"> <option value="3620194" selected="selected">Global</option></select>
           <div class="w-75">
-            <h1>Cases</h1>
+            <h1 class="append-flag">Cases</h1>
+                    <div class="mb4 mt2">
+              <h2 class="lh-copy measure black-60 mb4">Total Cases </h2><p class="lh-copy measure black-60">
+             (Linear scale)
+          </p>
+              </div>
           </div>
-          <div id="casesContainer" class="chart-container">
+            
+            
+            <div id="casesContainer" class="chart-container">
             <canvas id="cases"></canvas>
           </div>
+            <div class="mb4 mt4">
+            <h2 class="lh-copy measure black-60 mb4 mt4">Daily New Cases </h2><p class="lh-copy measure black-60">per day
+          </p>
+                </div>
+             <div id="newCasesContainer" class="chart-container">
+            <canvas id="daily-cases"></canvas>
+          </div>
+
+
+       
+        
         </div>
       </section>
 
       <section class="country-table">
         <div class="card-box chart-wrapper">
-          <h1>Deaths</h1>
-          <div class="chart-container">
+            <select class="deaths-select" style="width: 200px"> <option value="3620194" selected="selected">Global</option></select>
+            <div class="w-75">
+            <h1 class="append-flag">Deaths</h1>
+                    <div class="mb4 mt2">
+              <h2 class="lh-copy measure black-60 mb4">Total Deaths </h2><p class="lh-copy measure black-60">
+             (Linear scale)
+          </p>
+              </div>
+          </div>
+        
+        <div id="deathsContainer" class="chart-container">
             <canvas id="deaths"></canvas>
           </div>
+            
+                <div class="mb4 mt4">
+            <h2 class="lh-copy measure black-60 mb4 mt4">Daily New Deaths </h2><p class="lh-copy measure black-60">per day
+          </p>
+                </div>
+             <div id="newDeathsContainer" class="chart-container">
+            <canvas id="daily-deaths"></canvas>
+          </div>
+   
+
+            
+          
         </div>
       </section>
       <script>
@@ -342,7 +396,7 @@ $datesFormattedShort = '"'.implode('","',$items).'"' ;
   obj.flag = obj.flag || obj.countryInfo.flag
 
   return obj;
-          console.log(obj);
+        
 });
           
 function formatState (state) {
@@ -363,22 +417,51 @@ $(".js-data-example-ajax").select2({
     data: data,
     templateResult: formatState
         });
+          
+$(".deaths-select").select2({
+    data: data,
+    templateResult: formatState
+        });
+          
     
   
 </script>
 <script>
+    
+            var caseByDay = [<?php echo $casesByDayFormatted; ?>];
+          
+    
+    
+const newFromCumulative = starting => {
+	var end = [];
 
+	starting.forEach((val, index) => {
+		if (index == 0) {
+    	end.push(0);
+    } else {
+    	end.push(val - starting[index-1]);
+    }
+  });
+  
+  return end
+};
 
-        var ctx = document.getElementById('cases');
-        var casesChart = new Chart(ctx, {
-          type: 'line',
+var out = newFromCumulative(caseByDay);
+
+console.log(out);
+    
+    
+    
+    /* Initialise chart for daily cases */
+         var ctx = document.getElementById('daily-cases');
+        var newCasesContainer = new Chart(ctx, {
+          type: 'bar',
           responsive: true,
 
                               data: {
           labels:  [<?php echo $datesFormattedShort; ?>],
           datasets: [{
-             data: [<?php echo $casesByDayFormatted; ?>],
-             label: 'Number of Cases',
+             data: out,
              backgroundColor: "rgba(54, 162, 235, 0.4)",
              pointBackgrondColor: "rgba(54, 162, 235, 1)",
              borderColor: "rgba(54, 162, 235, 1)",
@@ -388,7 +471,147 @@ $(".js-data-example-ajax").select2({
 
           },
           options: {
+              legend: {
+        display: false
+    },
+               
+ 
             scales: {
+               xAxes: [{
+            gridLines: {
+                color: "rgba(0, 0, 0, 0)",
+            }
+        }],
+              yAxes: [{
+                    ticks: {
+                  beginAtZero: true,
+                  callback: function(value, index, values) {
+                      return (value / 1000) + "k";
+                  }
+                }
+              }
+                       ]}
+              
+            }
+          });
+    
+    
+        var ctx = document.getElementById('cases');
+        var casesChart = new Chart(ctx, {
+          type: 'line',
+          responsive: true,
+
+                              data: {
+          labels:  [<?php echo $datesFormattedShort; ?>],
+          datasets: [{
+             data: [<?php echo $casesByDayFormatted; ?>],
+             backgroundColor: "rgba(54, 162, 235, 0.4)",
+             pointBackgrondColor: "rgba(54, 162, 235, 1)",
+             borderColor: "rgba(54, 162, 235, 1)",
+             borderWidth: 1
+          }]
+
+
+          },
+          options: {
+              legend: {
+        display: false
+    },
+               
+ 
+            scales: {
+               xAxes: [{
+            gridLines: {
+                color: "rgba(0, 0, 0, 0)",
+            }
+        }],
+              yAxes: [{
+                    ticks: {
+                  beginAtZero: true,
+                  callback: function(value, index, values) {
+                      return (value / 1000) + "k";
+                  }
+                }
+              }
+                       ]}
+              
+            }
+          });
+    
+    $('.deaths-select').on('select2:select', function (e) {
+    
+        $('#flag').remove();
+        
+        $('#country-deaths-daily').remove();
+            
+            $('#country-deaths').remove();
+            
+          var imgurl = id_country_selected = e.params.data.flag;    
+            
+        
+            $(".select2-selection__rendered").eq(1).prepend("<img class='img-flag' src="+imgurl+">");
+            
+            $(".append-flag").eq(1).prepend("<img id='flag' class='img-flag' src="+imgurl+">");
+        
+            var id_country_selected = e.params.data.id;
+          console.log(id_country_selected);
+            var url = "https://corona.lmao.ninja/v2/historical/"+id_country_selected;
+            console.log(url);
+              $.ajax({
+        type: "POST",
+        url: "getCountryData.php",
+        data: {url: url},
+        success: function(data){
+            
+            var split = data.split("|");
+            var values = String(split[0]);
+            var dates  = String(split[1]);
+            var valuesDeath  = String(split[2]);
+            console.log(values);
+            console.log(dates);
+            console.log(valuesDeath);
+            
+            var arrayValues = values.split(',');
+            var arrayDates = dates.split(',');
+            var valuesDeathCountry = valuesDeath.split(',');
+            console.log(arrayValues);
+            console.log(arrayDates);
+            
+            var out3 = newFromCumulative(valuesDeathCountry);
+            
+            console.log(out3);
+            
+            deathsChart.destroy();
+            $('#deaths').remove();
+            $('#deathsContainer').append('<canvas id="country-deaths"><canvas>');
+            
+             var ctx = document.getElementById('country-deaths');
+        var deathsChartCountry = new Chart(ctx, {
+          type: 'line',
+          responsive: true,
+                data: {
+     labels: [<?php echo $datesDeathsFormattedShort ?>],
+     datasets: [{
+           data: valuesDeathCountry,
+         label: 'Number of Deaths',
+           backgroundColor: "rgba(255, 99, 132, 0.4)",
+           pointBackgrondColor: "rgba(255, 99, 132, 1)",
+           borderColor: "rgba(255, 99, 132, 1)",
+           borderWidth: 1
+
+       }]
+
+          },
+          options: {
+                 legend: {
+        display: false
+    },
+            scales: {
+                               xAxes: [{
+            gridLines: {
+                color: "rgba(0, 0, 0, 0)",
+            }
+        }],
               yAxes: [{
                 ticks: {
                   beginAtZero: true,
@@ -400,12 +623,86 @@ $(".js-data-example-ajax").select2({
             }
           }
         });
-    
-    $('.js-data-example-ajax').on('select2:open', function (e) {
-        $('#country-cases').remove();
-    });
+            
+            
+            deathsChart2.destroy();
+            $('#daily-deaths').remove(); $('#newDeathsContainer').append('<canvas id="country-deaths-daily"><canvas>');
+            
+            
+            
+            
+            /* Initialise chart for daily cases */
+         var ctx = document.getElementById('country-deaths-daily');
+        var countryDailyDeaths = new Chart(ctx, {
+          type: 'bar',
+          responsive: true,
 
+                              data: {
+          labels:  [<?php echo $datesFormattedShort; ?>],
+          datasets: [{
+             data: out3,
+             backgroundColor: "rgba(255, 99, 132, 0.4)",
+             pointBackgrondColor: "rgba(255, 99, 132, 1)",
+             borderColor: "rgba(255, 99, 132, 1)",
+             borderWidth: 1
+          }]
+
+
+          },
+          options: {
+              legend: {
+        display: false
+    },
+               
+ 
+            scales: {
+               xAxes: [{
+            gridLines: {
+                color: "rgba(0, 0, 0, 0)",
+            }
+        }],
+              yAxes: [{
+                    ticks: {
+                  beginAtZero: true,
+                  callback: function(value, index, values) {
+                      return (value / 1000) + "k";
+                  }
+                }
+              }
+                       ]}
+              
+            }
+          });
+
+        }
+         })
+        
+    });;
+    
+    
+    
         $('.js-data-example-ajax').on('select2:select', function (e) {
+            
+            
+            
+            
+          
+            
+            $('#flag').remove();
+        
+            
+            $('#country-cases-daily').remove();
+            
+            $('#country-cases').remove();
+            
+            var imgurl = id_country_selected = e.params.data.flag
+            
+            $(".select2-selection__rendered").first().prepend("<img class='img-flag' src="+imgurl+">");
+            
+            $(".append-flag").first().prepend("<img  id='flag' class='img-flag' src="+imgurl+">");
+    
+            console.log(imgurl);
+            
             var id_country_selected = e.params.data.id;
             console.log(id_country_selected);
             var url = "https://corona.lmao.ninja/v2/historical/"+id_country_selected;
@@ -426,7 +723,65 @@ $(".js-data-example-ajax").select2({
             var arrayDates = dates.split(',');
             console.log(arrayValues);
             console.log(arrayDates);
+            
+            
+            var dailyCaseso = newFromCumulative(arrayValues);
 
+
+            
+            
+            newCasesContainer.destroy();
+            $('#daily-cases').remove();
+            $('#newCasesContainer').append('<canvas id="country-cases-daily"><canvas>');
+            
+            
+            
+            
+            /* Initialise chart for daily cases */
+         var ctx = document.getElementById('country-cases-daily');
+        var countryDaily = new Chart(ctx, {
+          type: 'bar',
+          responsive: true,
+
+                              data: {
+          labels:  [<?php echo $datesFormattedShort; ?>],
+          datasets: [{
+             data: dailyCaseso,
+             backgroundColor: "rgba(54, 162, 235, 0.4)",
+             pointBackgrondColor: "rgba(54, 162, 235, 1)",
+             borderColor: "rgba(54, 162, 235, 1)",
+             borderWidth: 1
+          }]
+
+
+          },
+          options: {
+              legend: {
+        display: false
+    },
+               
+ 
+            scales: {
+               xAxes: [{
+            gridLines: {
+                color: "rgba(0, 0, 0, 0)",
+            }
+        }],
+              yAxes: [{
+                    ticks: {
+                  beginAtZero: true,
+                  callback: function(value, index, values) {
+                      return (value / 1000) + "k";
+                  }
+                }
+              }
+                       ]}
+              
+            }
+          });
+            
+            
+            
             casesChart.destroy();
             $('#cases').remove();
             $('#casesContainer').append('<canvas id="country-cases"><canvas>');
@@ -451,7 +806,15 @@ $(".js-data-example-ajax").select2({
 
           },
           options: {
+                 legend: {
+        display: false
+    },
             scales: {
+                               xAxes: [{
+            gridLines: {
+                color: "rgba(0, 0, 0, 0)",
+            }
+        }],
               yAxes: [{
                 ticks: {
                   beginAtZero: true,
@@ -470,12 +833,59 @@ $(".js-data-example-ajax").select2({
       </script>
 
       <script>
+                      var deathByDay = [<?php echo $deathsByDayFormatted; ?>];
+    
+    
+
+var out2 = newFromCumulative(deathByDay);
+    
+          /* Initialise death charts */
+               var ctx = document.getElementById('daily-deaths');
+        var deathsChart2 = new Chart(ctx, {
+          type: 'bar',
+          responsive: true,
+                data: {
+     labels: [<?php echo $datesDeathsFormattedShort ?>],
+     datasets: [{
+           data: out,
+         label: 'Number of Deaths',
+           backgroundColor: "rgba(255, 99, 132, 0.4)",
+           pointBackgrondColor: "rgba(255, 99, 132, 1)",
+           borderColor: "rgba(255, 99, 132, 1)",
+           borderWidth: 1
+
+       }]
+
+          },
+          options: {
+                 legend: {
+        display: false
+    },
+            scales: {
+                               xAxes: [{
+            gridLines: {
+                color: "rgba(0, 0, 0, 0)",
+            }
+        }],
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                  callback: function(value, index, values) {
+                      return (value / 1000) + "k";
+                  }
+                }
+              }]
+            }
+          }
+        });
+          
+          
         var ctx = document.getElementById('deaths');
         var deathsChart = new Chart(ctx, {
           type: 'line',
           responsive: true,
                 data: {
-     labels: [<?php echo $datesFormattedDeaths; ?>],
+     labels: [<?php echo $datesDeathsFormattedShort ?>],
      datasets: [{
            data: [<?php echo $deathsByDayFormatted; ?>],
          label: 'Number of Deaths',
@@ -488,7 +898,15 @@ $(".js-data-example-ajax").select2({
 
           },
           options: {
+                 legend: {
+        display: false
+    },
             scales: {
+                               xAxes: [{
+            gridLines: {
+                color: "rgba(0, 0, 0, 0)",
+            }
+        }],
               yAxes: [{
                 ticks: {
                   beginAtZero: true,
@@ -521,6 +939,7 @@ $(".js-data-example-ajax").select2({
         "order": [[ 2, 'desc' ]],
         "bLengthChange": false,
       });
+        
       t.on('order.dt search.dt', () => {
         t.column(0, {search:'applied', order:'applied'}).nodes().each((cell, i) => {
           cell.innerHTML = i+1;
@@ -545,6 +964,12 @@ $(".js-data-example-ajax").select2({
           $("body").toggleClass("light-theme");
       });
   </script>
+    
+  <script>// Add basic styles for active tabs
+$('.tabs__menu-item').on('click', function() {
+  $(this).addClass('bg-white').addClass('red');
+  $(this).siblings().removeClass('red');
+});</script>
 
 </body>
 </html>
