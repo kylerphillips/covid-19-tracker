@@ -679,7 +679,7 @@ float: left;
     border: 1px solid #ddd;
 }
 .pagination>li.active > a {
-    background: #1BBC9C;
+    background: lightslategray;
     color: white;
 }
 
@@ -769,6 +769,7 @@ button {
     margin: 0 !important;;
     padding: 2rem;
     padding-top: 0.5rem;
+    min-height: 500px;
 }
 
 
@@ -1051,7 +1052,7 @@ body:not(.light-theme) {
 }
 
 .pagination>li.active > a {
-    background: #1BBC9C;
+    background: lightslategray;
     color: white;
 }
 
@@ -1090,7 +1091,9 @@ body:not(.light-theme) {
     width: 1.5rem;
     border-radius: 2px;
     margin-right: 0.5rem;
+    padding-top: 4px;
 }
+
 
 .select2 {
     margin-top: 1rem !important;
@@ -1098,4 +1101,66 @@ body:not(.light-theme) {
 
 .select2-selection {
     outline: none;
+}
+
+div.dataTables_wrapper div.dataTables_filter {
+    text-align: left !important;
+}
+
+div.dataTables_wrapper div.dataTables_filter label {
+    padding: 0;
+    padding-top: 1rem;
+}
+
+Hide info of no checked inputs
+.tabs__content input:not(:checked) ~ .tabs__content__info {
+  display: none;
+}
+
+.tabs-main {
+  min-width: 320px;
+  max-width: 800px;
+  padding: 50px;
+  margin: 0 auto;
+  background-color: blue;
+}
+
+label {
+  display: inline-block;
+  margin: 0 0 -1px;
+  padding: 15px 25px;
+  font-weight: 600;
+  text-align: center;
+}
+
+label:nth-child(2):hover {
+  color: rgba(0,0,0,0.4);
+  cursor: pointer;
+}
+
+.red {
+        border-bottom: 2px solid;
+    border-color: lightslategray;
+    color: lightslategray !important;
+}
+
+.w-75 h1 {
+    margin-bottom: 0;
+}
+
+
+.country-table h2 {
+    font-weight: 600;
+    color: black;
+    display: inline-flex;
+    margin: 0;
+    
+}
+.country-table p {
+    display: inline-flex;
+    margin-left: 0.25rem;
+}
+
+.invisible {
+    display: none !important;
 }
