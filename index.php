@@ -847,7 +847,7 @@ var out2 = newFromCumulative(deathByDay);
                 data: {
      labels: [<?php echo $datesDeathsFormattedShort ?>],
      datasets: [{
-           data: out,
+           data: out2,
          label: 'Number of Deaths',
            backgroundColor: "rgba(255, 99, 132, 0.4)",
            pointBackgrondColor: "rgba(255, 99, 132, 1)",
