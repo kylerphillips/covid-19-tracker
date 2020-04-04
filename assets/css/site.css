@@ -944,12 +944,17 @@ body:not(.light-theme) {
 }
 
 .light-theme .card-box {
-    background-color: rgba(255,255,255, 0.05);
+    background-color: rgba(255,255,255, 0.075);
 }
 
 .light-theme h3 {
     color: white;
 }
+
+.light-theme .select2-selection__rendered {
+    color: white;
+}
+
 .light-theme h6 {
     color: rgba(255,255,255, 0.4);
 }
@@ -1163,4 +1168,10 @@ label:nth-child(2):hover {
 
 .invisible {
     display: none !important;
+}
+
+.table-responsive{
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
 }

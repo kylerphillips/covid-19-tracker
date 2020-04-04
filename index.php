@@ -326,7 +326,7 @@ $datesDeathsFormattedShort = '"'.implode('","',$itemsD).'"' ;
       </section>
       <section class="country-table">
         <div class="card-box chart-wrapper">
-          <select class="js-data-example-ajax" style="width: 200px"> <option value="3620194" selected="selected">Global</option></select>
+          <select class="js-data-example-ajax" style="width: 200px"> <option value="3620194" selected="selected">Filter</option></select>
           <div class="w-75">
             <h1 class="append-flag">Cases</h1>
                     <div class="mb4 mt2">
@@ -356,7 +356,7 @@ $datesDeathsFormattedShort = '"'.implode('","',$itemsD).'"' ;
 
       <section class="country-table">
         <div class="card-box chart-wrapper">
-            <select class="deaths-select" style="width: 200px"> <option value="3620194" selected="selected">Global</option></select>
+            <select class="deaths-select" style="width: 200px"> <option value="3620194" selected="selected">Filter</option></select>
             <div class="w-75">
             <h1 class="append-flag">Deaths</h1>
                     <div class="mb4 mt2">
