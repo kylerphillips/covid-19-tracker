@@ -606,6 +606,12 @@ table > td, th, div{
     .stat-card {
         width: 100% !important;
     }
+    
+    .table-responsive{
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
 
     header div:first-child {
         width: 100%;
@@ -1170,8 +1176,3 @@ label:nth-child(2):hover {
     display: none !important;
 }
 
-.table-responsive{
-  overflow-x: scroll;
-  overflow-y: hidden;
-  white-space: nowrap;
-}
