@@ -118,6 +118,7 @@ $datesDeathsFormattedShort = '"'.implode('","',$itemsD).'"' ;
   <link rel="stylesheet" href="assets/css/tachyons.min.css">
   <link rel="stylesheet" href="assets/css/site.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="assets/js/fixed-header-table.js"></script>
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162093056-1"></script>
@@ -283,12 +284,12 @@ $datesDeathsFormattedShort = '"'.implode('","',$itemsD).'"' ;
             $select2Data = json_encode($json);
             $data = json_decode($json);
             $array = json_decode(json_encode($data), true);
-                  echo '<h1>🌎 Country Breakdown</h1>'; 
+                  echo '<h1 class="freeze">🌎 Country Breakdown</h1>'; 
             echo '<table id="country-table" class="table table-striped table-curved">';
             echo '<thead>
                     <tr>
-                      <th>Rank</th>
-                      <th>Country</th>
+                      <th class="freeze">Rank</th>
+                      <th class="freeze" style="    left: 58px;">Country</th>
                       <th>Cases</th>
                       <th>Deaths</th>
                       <th>Critical</th>
@@ -307,8 +308,8 @@ $datesDeathsFormattedShort = '"'.implode('","',$itemsD).'"' ;
 
             foreach($array as $result) {
               echo '<tr>';
-              echo '<td></td>';
-              echo '<td> <img src='.$result['countryInfo']['flag'].'>'.$result['country'].'</td>';
+              echo '<td class="freeze""></td>';
+              echo '<td class="freeze" style=" left: 58px;"> <img src='.$result['countryInfo']['flag'].'>'.$result['country'].'</td>';
               echo '<td>' .number_format($result['cases']).'</td>';
               echo '<td>'.number_format($result['deaths']).'</td>';
               echo '<td>'.number_format($result['critical']).'</td>';
@@ -931,6 +932,7 @@ var out2 = newFromCumulative(deathByDay);
   <script>
     $(() => {
       var t = $('#country-table').DataTable({
+
         "columnDefs": [ {
           "searchable": false,
           "orderable": false,

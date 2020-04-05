@@ -703,7 +703,7 @@ table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, 
 }
 
 .table td, .table th {
-    background-color: rgba(0,0,0,0) !important;
+/*    background-color: rgba(0,0,0,0) !important;*/
 }
 
 .badge {
@@ -1175,4 +1175,14 @@ label:nth-child(2):hover {
 .invisible {
     display: none !important;
 }
+.freeze {
+    position: sticky !important;;
+    left: 0px;
+    background-color: #ffffff !important;
+    z-index: 1000000;
+}
 
+#country-table_filter {
+      position: sticky !important;;
+    left: 0px;
+}
