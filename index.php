@@ -705,7 +705,7 @@ console.log(out);
             
             var id_country_selected = e.params.data.id;
             console.log(id_country_selected);
-            var url = "https://corona.lmao.ninja/v2/historical/"+id_country_selected;
+            var url = "https://corona.lmao.ninja/v2/historical/"+id_country_selected+"?lastdays=all";
             console.log(url);
               $.ajax({
         type: "POST",
