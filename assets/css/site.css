@@ -606,13 +606,13 @@ table > td, th, div{
         width: 150px;
         display: inline;
     }
-    
+
 
 @media (max-width:1000px)  {
     .stat-card {
         width: 100% !important;
     }
-    
+
     div.dataTables_wrapper div.dataTables_filter label {
 position: sticky;
         left: 0;
@@ -621,12 +621,12 @@ position: sticky;
         width: 150px;
         display: inline-flex;
     }
-    
+
     .dataTables_info {
         position: sticky;
         left: 0;
     }
-    
+
     .table-responsive{
   overflow-x: scroll;
   overflow-y: hidden;
@@ -1186,7 +1186,7 @@ label:nth-child(2):hover {
     color: black;
     display: inline-flex;
     margin: 0;
-    
+
 }
 .country-table p {
     display: inline-flex;
@@ -1210,4 +1210,11 @@ label:nth-child(2):hover {
 #country-table_filter label {
       position: sticky !important;;
     left: 0px;
+}
+
+
+
+.badge-warning {
+  color: #000000;
+  background-color: #FFEEAA
 }
