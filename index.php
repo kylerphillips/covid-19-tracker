@@ -118,7 +118,6 @@ $datesDeathsFormattedShort = '"'.implode('","',$itemsD).'"' ;
   <link rel="stylesheet" href="assets/css/tachyons.min.css">
   <link rel="stylesheet" href="assets/css/site.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="assets/js/fixed-header-table.js"></script>
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162093056-1"></script>
@@ -309,7 +308,7 @@ $datesDeathsFormattedShort = '"'.implode('","',$itemsD).'"' ;
             foreach($array as $result) {
               echo '<tr>';
               echo '<td class="freeze""></td>';
-              echo '<td class="freeze" style=" left: 58px;"> <img src='.$result['countryInfo']['flag'].'>'.$result['country'].'</td>';
+              echo '<td class="freeze" style=" left: 58px;"> <img src='.$result['countryInfo']['flag'].'><div class="country">'.$result['country'].'</div></td>';
               echo '<td>' .number_format($result['cases']).'</td>';
               echo '<td>'.number_format($result['deaths']).'</td>';
               echo '<td>'.number_format($result['critical']).'</td>';
@@ -556,7 +555,7 @@ console.log(out);
         
             var id_country_selected = e.params.data.id;
           console.log(id_country_selected);
-            var url = "https://corona.lmao.ninja/v2/historical/"+id_country_selected;
+            var url = "https://corona.lmao.ninja/v2/historical/"+id_country_selected+"?lastdays=all";
             console.log(url);
               $.ajax({
         type: "POST",

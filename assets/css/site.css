@@ -602,9 +602,29 @@ table > td, th, div{
     float: right;
 }
 
+ .country {
+        width: 150px;
+        display: inline;
+    }
+    
+
 @media (max-width:1000px)  {
     .stat-card {
         width: 100% !important;
+    }
+    
+    div.dataTables_wrapper div.dataTables_filter label {
+position: sticky;
+        left: 0;
+}
+    .country {
+        width: 150px;
+        display: inline-flex;
+    }
+    
+    .dataTables_info {
+        position: sticky;
+        left: 0;
     }
     
     .table-responsive{
@@ -958,8 +978,9 @@ body:not(.light-theme) {
 }
 
 .light-theme .select2-selection__rendered {
-    color: white;
+    color: white !important;
 }
+
 
 .light-theme h6 {
     color: rgba(255,255,255, 0.4);
@@ -1182,7 +1203,11 @@ label:nth-child(2):hover {
     z-index: 1000000;
 }
 
-#country-table_filter {
+.light-theme .freeze {
+    background-color: #000 !important;
+}
+
+#country-table_filter label {
       position: sticky !important;;
     left: 0px;
 }
