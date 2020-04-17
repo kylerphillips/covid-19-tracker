@@ -3,7 +3,7 @@
   header("Access-Control-Allow-Origin: *");
 
   /* fetch historical API data */
-  $json = file_get_contents('https://corona.lmao.ninja/all');
+  $json = file_get_contents('https://corona.lmao.ninja/v2/all');
   $obj = json_decode($json);
   $jsonHistorial = file_get_contents('https://corona.lmao.ninja/v2/historical/all');
   $objHistorial = json_decode($jsonHistorial);
@@ -116,7 +116,7 @@ $datesDeathsFormattedShort = '"'.implode('","',$itemsD).'"' ;
   <meta name="description" content="Track the spread of the Coronavirus Covid-19 outbreak">
 
   <link rel="stylesheet" href="assets/css/tachyons.min.css">
-  <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="assets/css/site.css?v=1">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -279,7 +279,7 @@ $datesDeathsFormattedShort = '"'.implode('","',$itemsD).'"' ;
 
         <div class="table-responsive">
           <?php
-            $json = file_get_contents("https://corona.lmao.ninja/countries");
+            $json = file_get_contents("https://corona.lmao.ninja/v2/countries");
             $select2Data = json_encode($json);
             $data = json_decode($json);
             $array = json_decode(json_encode($data), true);
