@@ -5,7 +5,7 @@
   /* fetch historical API data */
   $json = file_get_contents('https://corona.lmao.ninja/v2/all');
   $obj = json_decode($json);
-  $jsonHistorial = file_get_contents('https://corona.lmao.ninja/v2/historical/all');
+  $jsonHistorial = file_get_contents('https://corona.lmao.ninja/v2/historical/all?lastdays=all');
   $objHistorial = json_decode($jsonHistorial);
   $arrayHistorial = json_decode(json_encode($objHistorial), true);
 
@@ -367,6 +367,7 @@ $datesDeathsFormattedShort = '"'.implode('","',$itemsD).'"' ;
           ?>
         </div>
       </section>
+
       <section class="country-table">
         <div class="card-box chart-wrapper">
           <select class="js-data-example-ajax" style="width: 200px"> <option value="3620194" selected="selected">Filter</option></select>
@@ -426,6 +427,7 @@ $datesDeathsFormattedShort = '"'.implode('","',$itemsD).'"' ;
 
         </div>
       </section>
+
       <script>
 
       /* Select2 data filter */

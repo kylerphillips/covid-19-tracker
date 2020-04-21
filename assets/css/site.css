@@ -742,6 +742,7 @@ table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, 
 .badge-danger {
     color: #fff;
     background-color: #d9534f;
+    font-weight: 600;
 }
 .badge-info {
     color: #fff;
@@ -1216,5 +1217,11 @@ label:nth-child(2):hover {
 
 .badge-warning {
   color: #000000;
-  background-color: #FFEEAA
+  background-color: #FFEEAA;
+    font-weight: 600;
+}
+
+
+.badge-warning  {
+    
 }
